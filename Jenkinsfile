@@ -1,5 +1,12 @@
-pipeline{
-
+/**
+ * A generic pipeline for building a docker image and preparing it for deployment
+ * in Nomad.
+ */
+def call(body) {
+	def config = [:]
+	body.resolveStrategy = Closure.DELEGATE_FIRST
+	body.delegate = config
+	body()
 	// set sensible defaults
 	config.agentlabel = config.agentlabel ?: 'linux'
 	config.skipCheckout = config.skipCheckout == null ? true : config.skipCheckout
