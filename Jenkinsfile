@@ -1,4 +1,4 @@
 @Library("universal-libraries") _
-f5automation {
+library_f5automation {
     cookbookName = "f5_automation"
 }
