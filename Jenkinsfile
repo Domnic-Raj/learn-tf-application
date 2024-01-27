@@ -10,7 +10,7 @@ pipeline {
         }
        stage('script') {
             steps {
-                sh '/var/lib/jenkins/workspace/ury-Devops_f5_automation_feature@tmp/f5_backup.sh'
+                sh './f5_backup.sh'
             }
         }
       stage('build') { 
