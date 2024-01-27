@@ -10,7 +10,7 @@ pipeline {
         }
        stage('script') {
             steps {
-                sh './f5_backup.sh'
+                sh '/var/lib/jenkins/workspace/Mercury-Devops/f5_aut/_build_scripts/f5_backup.sh'
             }
         }
       stage('build') { 
