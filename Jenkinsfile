@@ -8,6 +8,11 @@ pipeline {
                 checkout scm
             }
         }
+      stage('git clone'){
+        steps{
+          sh "git clone https://stash.mgmt.local/scm/merc/sonali-test.git"
+        }
+      }
        stage('script') {
             steps {
                 sh 'chmod +x ./f5_backup.sh'
