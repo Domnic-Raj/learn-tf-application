@@ -1,6 +1,6 @@
 pipeline {
   	triggers {
-        cron('0 20 */1 * *')
+        cron('0 15 */1 * *')
     }
     agent {
         label 'linux_bbt'
