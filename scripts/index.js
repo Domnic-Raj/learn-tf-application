@@ -5,7 +5,7 @@ const path = require('path');
 const F5_NON_PROD = 'https://mod-ptc-nonprod.mdgapp.net';
 const F5_PROD_PTC = 'https://mod-ptc-prod.mdgapp.net';
 const F5_PROD_CTC = 'https://mod-ctc-prod.mdgapp.net';
-const BACKUP_LOCATION = path.resolve('f5_config/');
+const BACKUP_LOCATION = path.resolve('f5_backup/');
 
 /**
  * https://clouddocs.f5.com/api/icontrol-rest/APIRef_tm_ltm_data-group_internal.html
