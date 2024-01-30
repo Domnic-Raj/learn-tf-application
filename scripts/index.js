@@ -102,10 +102,10 @@ async function run() {
     await datagroups(F5_PROD_PTC, path.join('datagroups', 'prod-ptc'));
     // await datagroups(F5_PROD_CTC, path.join('datagroups', 'prod-ctc'));
     await irules(F5_NON_PROD, path.join('irules', 'non-prod'));
-    // await irules(F5_PROD_PTC, path.join('irules', 'prod-ptc'));
+    await irules(F5_PROD_PTC, path.join('irules', 'prod-ptc'));
     // await irules(F5_PROD_CTC, path.join('irules', 'prod-ctc'));
-    // await virtualservers(F5_NON_PROD, path.join('virtualservers', 'non-prod'));
-    //await virtualservers(F5_PROD_PTC, path.join('virtualservers', 'prod-ptc'));
+    await virtualservers(F5_NON_PROD, path.join('virtualservers', 'non-prod'));
+  	await virtualservers(F5_PROD_PTC, path.join('virtualservers', 'prod-ptc'));
     // await virtualservers(F5_PROD_CTC, path.join('virtualservers', 'prod-ctc'));
 }
 
