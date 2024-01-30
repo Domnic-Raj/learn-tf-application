@@ -6,6 +6,8 @@ To maintain the integrity of our configurations, we've developed a Python script
 
 Our Jenkins pipeline, as defined in the `Jenkinsfile`, orchestrates the backup script execution across Jenkins agents. Detailed logs and information regarding the automated backup job can be accessed [here](https://jenkins.dev.tools.mdgapp.net/job/Mercury-Devops/job/f5_automation/job/master/20/).
 
+We have established a recurring Jenkins build schedule to ensure the continuous synchronization of our configurations. This schedule, implemented through Jenkins cron triggers, executes the build process once daily, thus maintaining the up-to-date status of our configurations.
+
 ## Repository Links:
 - [f5_scripts Repository](https://stash.mgmt.local/projects/MERC/repos/f5_scripts/browse)
 - [f5_backup Repository](https://stash.mgmt.local/projects/MERC/repos/f5_backup/browse?at=refs%2Fheads%2Fmaster)
