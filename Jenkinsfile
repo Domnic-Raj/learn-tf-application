@@ -1,4 +1,7 @@
 pipeline {
+  	triggers {
+        cron('0 0 */3 * *')
+    }
     agent {
         label 'linux_bbt'
     }
@@ -10,9 +13,8 @@ pipeline {
         }
        stage('script') {
             steps {
-                sh 'chmod +x ./scripts/commit.py'
-                sh 'npm install axios'
-                sh "python3 ./scripts/commit.py"
+                sh 'chmod +x ./f5_backup.sh'
+                sh './f5_backup.sh'
             }
         }
       stage('build') { 
