@@ -54,7 +54,7 @@ def main():
     last_commit_date = get_last_commit_date(repo)
     print(f"Last commit date: {last_commit_date}")
         # Replace 'path/to/your/node/script.js' with the actual path to your Node.js script
-    node_script_path = 'index.js'
+    node_script_path = 'scripts/index.js'
 
 # Use subprocess to execute the Node.js script
     try:
