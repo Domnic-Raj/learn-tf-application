@@ -12,6 +12,6 @@ Our Jenkins pipeline, as defined in the `Jenkinsfile`, orchestrates the backup s
 
 Please feel free to explore these repositories for deeper insights.
 
-Should you have any questions or require further assistance, don't hesitate to reach out.
+Should you have any questions or require further assistance, don't hesitate to reach out [Mercury Team](MD-MercuryTeam@ihsmarkit.com)
 
 
