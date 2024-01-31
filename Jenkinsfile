@@ -14,13 +14,12 @@ pipeline {
        stage('script') {
             steps {
                 sh 'chmod +x ./scripts/commit.py'
-                sh "npm install axios"
                 sh 'python3 ./scripts/commit.py'
             }
         }
       stage('build') { 
             steps {
-                sh "echo 'building ...'"
+                sh "echo 'Configuration updated ...'"
             }
         }
     }
