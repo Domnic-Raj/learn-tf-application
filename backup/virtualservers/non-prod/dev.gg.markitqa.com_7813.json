@@ -1,0 +1,19 @@
+{
+  "name": "dev.gg.markitqa.com_7813",
+  "partition": "www-qa",
+  "enabled": true,
+  "pool": "/www-qa/dev.gg.markitqa.com_7813.pool",
+  "poolReference": {
+    "link": "https://localhost/mgmt/tm/ltm/pool/~www-qa~dev.gg.markitqa.com_7813.pool?ver=16.1.4.1"
+  },
+  "profilesReference": {
+    "items": [
+      {
+        "name": "tcp",
+        "nameReference": {
+          "link": "https://localhost/mgmt/tm/ltm/profile/tcp/~Common~tcp?ver=16.1.4.1"
+        }
+      }
+    ]
+  }
+}

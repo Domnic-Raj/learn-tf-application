@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "Countries_Block_iRule",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/Countries_Block_iRule",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~Countries_Block_iRule?ver=16.1.4.1",
+  "apiAnonymous": "when CLIENT_ACCEPTED {\n\t    set ipaddr [IP::client_addr]\n\t    set fromCountry [whereis $ipaddr country]\n\t    if { [class match $fromCountry equals Countries_Block] } {\n\t         log local5. \"Attacker IP: $ipaddr  Country registered is: $fromCountry  LB VIP [IP::local_addr]:[TCP::local_port] \"\n\t         drop\n\t   }\n}"
+}

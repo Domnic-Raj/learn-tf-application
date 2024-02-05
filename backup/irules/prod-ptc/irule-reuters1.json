@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "irule-reuters1",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/irule-reuters1",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~irule-reuters1?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST {\n STREAM::disable    \n if { not([HTTP::uri] starts_with \"/apiman-gateway/MOD\") } {\n        HTTP::redirect https://reuters-api.markitqa.com/apiman-gateway/MOD[HTTP::uri]\n# log local0. \"[HTTP::uri]\"\n    }\n}\n\nwhen HTTP_RESPONSE {\n   # Check if response type is text\n   if {[HTTP::header value Content-Type] contains \"text\"}{\n      STREAM::expression {@/apiman-gateway/MOD@@}\n      # Enable the stream filter for this response only\n      STREAM::enable\n   }\n}"
+}

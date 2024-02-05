@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "PIMCO_Documents_Pool",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/PIMCO_Documents_Pool",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~PIMCO_Documents_Pool?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST {\n     switch -glob [string tolower [HTTP::uri]] {\n           \"/documents*\" {\n                set new_uri [string map { \"/documents\" \"/\" } [HTTP::uri]]\n                HTTP::uri $new_uri\n                HTTP::header replace Host uat.pimcodocs.markitqa.com \n                pool uat.pimcodocs.markitqa.com_443.pool\n           }\n     }\n}"
+}

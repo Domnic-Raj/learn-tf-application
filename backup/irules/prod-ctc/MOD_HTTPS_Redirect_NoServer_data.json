@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "MOD_HTTPS_Redirect_NoServer_data",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/MOD_HTTPS_Redirect_NoServer_data",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~MOD_HTTPS_Redirect_NoServer_data?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST {\n  if { [HTTP::uri] contains \"/data\" } {\n    HTTP::respond 302 noserver Location \"https://[HTTP::host][HTTP::uri]\" \n  }\n}"
+}

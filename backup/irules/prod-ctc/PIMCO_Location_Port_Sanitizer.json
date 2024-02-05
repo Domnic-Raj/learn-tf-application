@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "PIMCO_Location_Port_Sanitizer",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/PIMCO_Location_Port_Sanitizer",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~PIMCO_Location_Port_Sanitizer?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_RESPONSE {\n# Check if a response is a redirect\nif {[HTTP::is_redirect]}{\n# log local0. \"Original Location: [HTTP::header value Location]\"\n# Use regsub to remove the colon and any characters up to the next forward slash.\nHTTP::header replace Location [regsub {:[0-9]+?(?=/)} [HTTP::header value Location] \"\"]\n# log local0. \"Updated Location (regsub): [regsub {:[0-9]+?(?=/)} [HTTP::header value Location] \"\"]\"\n}\n}"
+}

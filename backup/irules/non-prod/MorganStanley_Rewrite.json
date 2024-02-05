@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "MorganStanley_Rewrite",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/MorganStanley_Rewrite",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~MorganStanley_Rewrite?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST { \n    if { [HTTP::uri] starts_with \"/SSO/\" } { \n  \t    pool sso-mod.markitqa.com_80.pool\n        set NewUriSSO [findstr [HTTP::uri] /SSO 4]\n        HTTP::uri $NewUriSSO\n        HTTP::header replace Host sso-mod.markitqa.com\n    }\n    else { pool qa.services.mdgapp.net_80.pool }\n\n}"
+}

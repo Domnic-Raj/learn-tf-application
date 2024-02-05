@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "irule-reuters2",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/irule-reuters2",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~irule-reuters2?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST {\n   # Disable the stream filter for all requests\n   STREAM::disable\n    # Remove this header to prevent server from compression response\n    HTTP::header remove Accept-Encoding\n    if { not([HTTP::uri] starts_with \"/apiman-gateway/MOD\") } {\n        HTTP::uri \"/apiman-gateway/MOD[HTTP::uri]\"\n        # log local0. \"[HTTP::uri]\"\n    }\n}\nwhen HTTP_RESPONSE {\n    if { [HTTP::header exists Location] }{ \n        HTTP::header replace Location [string map {\"/apiman-gateway/MOD\" \"\"} [HTTP::header Location]] \n    } \n   # Check if response type is text\n   if {[HTTP::header value Content-Type] contains \"text\"}{\n      # Replace any http:// instance with https://, unless the original string is http://example.com\n      STREAM::expression {@/apiman-gateway/MOD@@}\n      # Enable the stream filter for this response only\n      STREAM::enable\n}\n}"
+}

@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "api-rbc.wsodqa.com-clientssl",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/api-rbc.wsodqa.com-clientssl",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~api-rbc.wsodqa.com-clientssl?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST {\n if {[matchclass [string tolower [HTTP::uri]] contains api-rbc.wsodqa.com.data.group]} {\n          SSL::cert mode require\n          SSL::authenticate always\n          SSL::authenticate depth 9  \n          SSL::renegotiate  \n}\n\n}"
+}

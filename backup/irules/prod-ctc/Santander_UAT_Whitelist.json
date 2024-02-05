@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "Santander_UAT_Whitelist",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/Santander_UAT_Whitelist",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~Santander_UAT_Whitelist?ver=16.1.4.1",
+  "apiAnonymous": "when CLIENT_ACCEPTED {\n   if { !([matchclass [IP::client_addr] equals Santander_UAT]) } {\n        # log local0. \"[IP::client_addr]:[TCP::client_port]: does not match Santander_UAT IPs allowed\"\n        reject\n     }\n}"
+}

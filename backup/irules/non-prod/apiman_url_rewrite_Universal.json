@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "apiman_url_rewrite_Universal",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/apiman_url_rewrite_Universal",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~apiman_url_rewrite_Universal?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST { \n  if { not([HTTP::uri] starts_with \"/apiman-gateway/Universal\") } \n  {\n    HTTP::uri /apiman-gateway/Universal[HTTP::uri] \n    # log local0. \"[HTTP::uri]\"\n  }\n}"
+}

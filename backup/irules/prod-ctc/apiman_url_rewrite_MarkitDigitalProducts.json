@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "apiman_url_rewrite_MarkitDigitalProducts",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/apiman_url_rewrite_MarkitDigitalProducts",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~apiman_url_rewrite_MarkitDigitalProducts?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST { \nif { not([HTTP::uri] starts_with \"/apiman-gateway/MarkitDigitalProducts\") } \n{ HTTP::uri /apiman-gateway/MarkitDigitalProducts[HTTP::uri] \n# log local0. \"[HTTP::uri]\"\n}\n}"
+}

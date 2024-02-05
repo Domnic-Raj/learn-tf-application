@@ -1,0 +1,111 @@
+{
+  "kind": "tm:ltm:data-group:internal:internalstate",
+  "name": "content.markitqa.com.redirect.data.group",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/content.markitqa.com.redirect.data.group",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/data-group/internal/~www-qa~content.markitqa.com.redirect.data.group?ver=16.1.4.1",
+  "type": "string",
+  "records": [
+    {
+      "name": "addata",
+      "data": "addata"
+    },
+    {
+      "name": "authentication",
+      "data": "authentication"
+    },
+    {
+      "name": "cgi",
+      "data": "cgi"
+    },
+    {
+      "name": "cgi-bin",
+      "data": "cgi-bin"
+    },
+    {
+      "name": "cnbc",
+      "data": "cnbc"
+    },
+    {
+      "name": "commsec",
+      "data": "commsec"
+    },
+    {
+      "name": "corporate",
+      "data": "corporate"
+    },
+    {
+      "name": "equityservices",
+      "data": "equityservices"
+    },
+    {
+      "name": "favicon.ico",
+      "data": "favicon.ico"
+    },
+    {
+      "name": "ftse",
+      "data": "ftse"
+    },
+    {
+      "name": "globeandmail",
+      "data": "globeandmail"
+    },
+    {
+      "name": "includes",
+      "data": "includes"
+    },
+    {
+      "name": "investorschronicle",
+      "data": "investorschronicle"
+    },
+    {
+      "name": "jbwere",
+      "data": "jbwere"
+    },
+    {
+      "name": "man",
+      "data": "man"
+    },
+    {
+      "name": "markitauctions",
+      "data": "markitauctions"
+    },
+    {
+      "name": "monitor",
+      "data": "monitor"
+    },
+    {
+      "name": "pershing",
+      "data": "pershing"
+    },
+    {
+      "name": "reuters",
+      "data": "reuters"
+    },
+    {
+      "name": "robots.txt",
+      "data": "robots.txt"
+    },
+    {
+      "name": "scb",
+      "data": "scb"
+    },
+    {
+      "name": "schwabamfcentral",
+      "data": "schwabamfcentral"
+    },
+    {
+      "name": "sol",
+      "data": "sol"
+    },
+    {
+      "name": "solresearch",
+      "data": "solresearch"
+    },
+    {
+      "name": "westpac",
+      "data": "westpac"
+    }
+  ]
+}

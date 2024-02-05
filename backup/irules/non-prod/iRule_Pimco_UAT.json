@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "iRule_Pimco_UAT",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/iRule_Pimco_UAT",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~iRule_Pimco_UAT?ver=16.1.4.1",
+  "apiAnonymous": "when CLIENT_ACCEPTED {\n   if { !([matchclass [IP::client_addr] equals Pimco_UAT]) } {\n        # log local0. \"[IP::client_addr]:[TCP::client_port]: does not match Pimco_UAT IPs allowed\"\n        reject\n     }\n}"
+}

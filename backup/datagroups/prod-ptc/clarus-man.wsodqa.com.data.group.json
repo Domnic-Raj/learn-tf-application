@@ -1,0 +1,19 @@
+{
+  "kind": "tm:ltm:data-group:internal:internalstate",
+  "name": "clarus-man.wsodqa.com.data.group",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/clarus-man.wsodqa.com.data.group",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/data-group/internal/~www-qa~clarus-man.wsodqa.com.data.group?ver=16.1.4.1",
+  "type": "string",
+  "records": [
+    {
+      "name": "/security",
+      "data": ""
+    },
+    {
+      "name": "/security/",
+      "data": ""
+    }
+  ]
+}

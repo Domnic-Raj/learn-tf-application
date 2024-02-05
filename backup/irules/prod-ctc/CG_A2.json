@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "CG_A2",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/CG_A2",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~CG_A2?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST {\n   HTTP::header remove x-forwarded-for \n   HTTP::header insert x-forwarded-for [getfield  [IP::remote_addr] \"%\" 1 ]\n   if { [HTTP::uri] starts_with \"https://capitalgroup-a2.wsodqa.com/\" } {\n   HTTP::uri [string map {https://capitalgroup-a2.wsodqa.com/ /} [HTTP::uri]]\n}\n}"
+}

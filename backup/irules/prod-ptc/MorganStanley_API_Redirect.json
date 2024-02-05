@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "MorganStanley_API_Redirect",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/MorganStanley_API_Redirect",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~MorganStanley_API_Redirect?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST { \n    if { [HTTP::uri] starts_with \"/ms-research/api/\" } { \n        pool qa-api.markitdigital.com_80.pool\n        set NewUri [findstr [HTTP::uri] /ms-research/api 16]\n        HTTP::uri $NewUri\n        HTTP::header replace HOST qa-api.markitdigital.com\n    } else {\n        pool qa.services.mdgapp.net_80.pool\n    }\n}"
+}

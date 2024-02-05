@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "apiman_url_rewrite_nab",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/apiman_url_rewrite_nab",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~apiman_url_rewrite_nab?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST { \nif { not([HTTP::uri] starts_with \"/apiman-gateway/NAB\") } \n{ HTTP::uri /apiman-gateway/NAB[HTTP::uri] \n# log local0. \"[HTTP::uri]\"\n}\n}"
+}

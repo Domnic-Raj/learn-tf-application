@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "generate_REQUEST-ID",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/generate_REQUEST-ID",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~generate_REQUEST-ID?ver=16.1.4.1",
+  "apiAnonymous": "proc rlg {length {chars \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\"}} {\n  set range [expr {[string length $chars]-1}]\n  set txt \"\"\n  for {set i 0} {$i < $length} {incr i} {\n    set pos [expr {int(rand()*$range)}]\n    append txt [string range $chars $pos $pos]\n  }\n  return $txt\n}"
+}

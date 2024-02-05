@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "insert_REQUEST-ID",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/insert_REQUEST-ID",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~insert_REQUEST-ID?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST {\n\n  if { !([HTTP::header exists \"REQUEST-ID\"]) } {\n       set rid1 [call generate_REQUEST-ID::rlg 8]\n       set rid2 [call generate_REQUEST-ID::rlg 4]\n       set rid3 [call generate_REQUEST-ID::rlg 4]\n       set rid4 [call generate_REQUEST-ID::rlg 4]\n       set rid5 [call generate_REQUEST-ID::rlg 12]\n       set NewRID $rid1-$rid2-$rid3-$rid4-$rid5\n\n       HTTP::header insert REQUEST-ID $NewRID\n\n     #  log local0. \"Random REQUEST-ID: $NewRID\"\n  }\n}"
+}

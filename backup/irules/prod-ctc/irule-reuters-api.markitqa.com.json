@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "irule-reuters-api.markitqa.com",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/irule-reuters-api.markitqa.com",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~irule-reuters-api.markitqa.com?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST {\n    if { not([HTTP::uri] starts_with \"/apiman-gateway/MOD\") } {\n        HTTP::uri /apiman-gateway/MOD[HTTP::uri]\n# log local0. \"[HTTP::uri]\"\n    }\n}"
+}

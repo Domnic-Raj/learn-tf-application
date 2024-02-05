@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "ApigeeRewriteURL_wwwx3.sterbcroyalbank.com_443",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/ApigeeRewriteURL_wwwx3.sterbcroyalbank.com_443",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~ApigeeRewriteURL_wwwx3.sterbcroyalbank.com_443?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST {\n    switch -glob [string tolower [HTTP::uri]] {\n                \"/apigee*\" {\n                                pool qa-api.markitdigital.com_80.pool\n                                set uri [HTTP::uri [string map -nocase {\"/apigee\" \"\"} [HTTP::uri]]]\n\n                }\n    default {pool qa.services.mdgapp.net_80.pool}\n    }\n# log local0. \"Pool-> [LB::server pool]  URI -> [HTTP::uri]\"\n}"
+}

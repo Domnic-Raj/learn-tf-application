@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "JPMorgan-sanctioned_irule_https",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/JPMorgan-sanctioned_irule_https",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~JPMorgan-sanctioned_irule_https?ver=16.1.4.1",
+  "apiAnonymous": "when CLIENT_ACCEPTED {\n\n    #    SSL::profile /www-qa/xxx.wsodqa.com_443.profile.clientssl\n\n         # log local0. \"XXXHTTP client accepted\"\n\n}\n\nwhen HTTP_RESPONSE {\n\n# log local0. \"XXXHTTP responding data\"\n\nHTTP::redirect https://ofac.jpmorgan.com\\r\\n\\r\\n\n\n}"
+}

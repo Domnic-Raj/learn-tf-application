@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "insert_F5-VIRTUAL-SERVER",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/insert_F5-VIRTUAL-SERVER",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~insert_F5-VIRTUAL-SERVER?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST {\n   HTTP::header remove \"F5-VIRTUAL-SERVER\"\n   HTTP::header insert \"F5-VIRTUAL-SERVER\" [virtual name]\n   # log local0. \"Current virtual server name: [virtual name]\"\n\n}"
+}

@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "content.markitqa.com.irule.redirect",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/content.markitqa.com.irule.redirect",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~content.markitqa.com.irule.redirect?ver=16.1.4.1",
+  "apiAnonymous": "when CLIENT_ACCEPTED {\n\n   # Check the VS port to determine if connection is SSL or not\n   switch [TCP::local_port] {\n      \"443\" {\n         set proto \"https\"\n      }\n      \"84*\" {\n         set proto \"https\"\n      }\n      \"81*\" {\n         set proto \"http\"\n      }\n      default {\n         set proto \"http\"\n      }\n   }\n# log local0.  \"This is the new protocol - ${proto}\"\n}\n\n\nwhen HTTP_REQUEST {\n\n    # extract the string between the first and second slash, \n    # assuming that this is always the hostname to redirect to.\n    # Use a skip count of 1 to strip the first slash.\n    set firstFolder [findstr [string tolower [HTTP::path]] \"/\" 1 \"/\"]\n\tlog local0.  \"This is the new domain - $firstFolder\" \n\n    # Remove the first folder from the uri unless it's listed in the class.\n    # Using \"string map\" because it retains the case of the URI.\n    # (important for Linux/Apache, and also to retain the case \n    # of any query strings)\n\n    if { not [class match $firstFolder equals content.markitqa.com.redirect.data.group] } {\n\n        set uri [string map -nocase {\"/$hostname\" \"\"} [HTTP::uri]]\n\t\t# log local0.  \"This is the new uri - $uri\"\n\n        HTTP::respond 301 Location \"${proto}:/$uri\"\n\t\t# log local0.  \"This is the new url - ${proto}:/$uri\"\n\n    }\n\n}"
+}

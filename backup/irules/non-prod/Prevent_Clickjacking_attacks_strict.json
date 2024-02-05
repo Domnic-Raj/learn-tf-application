@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "Prevent_Clickjacking_attacks_strict",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/Prevent_Clickjacking_attacks_strict",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~Prevent_Clickjacking_attacks_strict?ver=16.1.4.1",
+  "apiAnonymous": "when HTTP_REQUEST {\nset check_response 0\nswitch -glob [HTTP::header \"Referer\"] {\n\"*.tdameritrade.com*\" -\n\"*.ameritrade.com*\" -\n\"*.advisorclient.com*\" -\n\"*.associatesys.local*\" -\n\"*.markitondemand.com*\" -\n\"*.wsodqa.com*\" -\n\"*.markitqa.com*\" -\n\"*.wallst.com*\" -\n\"*.advisorservices.com*\" -\n\"*.tdainstitutional.com*\" -\n\"\"\n{\n# Allow Request to go through\nreturn\n}\ndefault {\nset check_response 1\n}\n}\n}\n\nwhen HTTP_RESPONSE {\n\nif {$check_response==1}{\n#X-Frame-Options\nHTTP::header insert \"X-Frame-Options\" \"SAMEORIGIN\"\n}\n#Content-Security-Policy\nHTTP::header insert \"Content-Security-Policy\" \"frame-ancestors 'self' https://*.tdameritrade.com https://*.ameritrade.com https://*.advisorclient.com https://*.tdainstitutional.com https://*.advisorservices.com https://*.markitondemand.com https://*.wsodqa.com https://*.markitqa.com https://*.wallst.com\"\n#X-Content-Security-Policy for IE\nHTTP::header insert \"X-Content-Security-Policy\" \"frame-ancestors 'self' https://*.tdameritrade.com https://*.ameritrade.com https://*.advisorclient.com https://*.tdainstitutional.com https://*.advisorservices.com https://*.markitondemand.com https://*.wsodqa.com https://*.markitqa.com https://*.wallst.com\"\n#X-Xss-Protection TDAM-6414\nHTTP::header insert \"X-Xss-Protection\" \"1; mode=block\"\n#X-Content-Type-Options TDAM-6414\nHTTP::header insert \"X-Content-Type-Options\" \"nosniff\"\n}"
+}

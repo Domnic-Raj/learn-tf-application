@@ -1,0 +1,9 @@
+{
+  "kind": "tm:ltm:rule:rulestate",
+  "name": "qa-developer_maintenance_rule",
+  "partition": "www-qa",
+  "fullPath": "/www-qa/qa-developer_maintenance_rule",
+  "generation": 1,
+  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~qa-developer_maintenance_rule?ver=16.1.4.1",
+  "apiAnonymous": "when LB_FAILED {\n    if { [active_members qa-developer.markitdigital.com_80.pool] < 1 } {\n        HTTP::respond 503 content [ifile get MarkitDigit-DevPortal-Maintenance-Page] \"Content-Type\" \"text/html\"\n    }\n}"
+}
