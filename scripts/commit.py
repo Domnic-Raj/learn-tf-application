@@ -11,7 +11,7 @@ from git import GitCommandError
 F5_NON_PROD = 'https://mod-ptc-nonprod.mdgapp.net'
 F5_PROD_PTC = 'https://mod-ptc-prod.mdgapp.net'
 F5_PROD_CTC = 'https://mod-ctc-prod.mdgapp.net'
-BACKUP_LOCATION = pathlib.Path('f5_test_backup')
+BACKUP_LOCATION = pathlib.Path('f5_backup')
 
 
 
@@ -140,14 +140,14 @@ def git_clone(repository_url, target_directory):
         print(f"Error cloning repository: {e}")
 
 def main():
-    repository_url = 'https://sonali.jain:Nzg1Njc1ODkxMjk1OtOUttUTTM1SoRZXazPL9egsQvx3@stash.mgmt.local/scm/merc/f5_test_backup.git'
+    repository_url = 'https://sonali.jain:Nzg1Njc1ODkxMjk1OtOUttUTTM1SoRZXazPL9egsQvx3@stash.mgmt.local/scm/merc/f5_backup.git'
 
     # Replace 'path/to/your/target/directory' with the path where you want to clone the repository
-    target_directory = 'f5_test_backup'
+    target_directory = 'f5_backup'
 
     git_clone(repository_url, target_directory)
     # Replace 'path/to/your/repo' with the actual path to your Git repository
-    repo_path = 'f5_test_backup/'
+    repo_path = 'f5_backup/'
 
     # Open the Git repository
     repo = Repo(repo_path)
