@@ -2,15 +2,111 @@ import subprocess
 import os
 from git import Repo
 import datetime
+import json
+import pathlib
+import requests
+from git import GitCommandError
 
+
+F5_NON_PROD = 'https://mod-ptc-nonprod.mdgapp.net'
+F5_PROD_PTC = 'https://mod-ptc-prod.mdgapp.net'
+F5_PROD_CTC = 'https://mod-ctc-prod.mdgapp.net'
+BACKUP_LOCATION = pathlib.Path('f5_backup')
+
+
+
+
+def fetch_data(url):
+    try:
+        response = requests.get(url, auth=('MoD_Guest', 'ReadOnly'))
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Failed to fetch data from {url}: {e}")
+        return None
+
+def backup_data(data, destination):
+    backup_dir = BACKUP_LOCATION / destination
+    backup_dir.mkdir(parents=True, exist_ok=True)
+
+    if data:
+        for item in data.get('items', []):
+            if item['partition'] != 'Common':
+                file_path = backup_dir / f"{item['name']}.json"
+                print(f"Processing {item['name']}: {file_path}")
+                with open(file_path, "w") as file:
+                    json.dump(item, file, indent=2)
+
+def run():
+    datagroups_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/data-group/internal')
+    backup_data(datagroups_data, 'datagroups/non-prod')
+
+    irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
+    backup_data(irules_data, 'irules/non-prod')
+
+    virtualservers_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    backup_data(virtualservers_data, 'virtualservers/non-prod')
+    
+    datagroups_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/data-group/internal')
+    backup_data(datagroups_data, 'datagroups/prod-ptc')
+
+    irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
+    backup_data(irules_data, 'irules/prod-ptc')
+
+    virtualservers_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    backup_data(virtualservers_data, 'virtualservers/prod-ptc')
+    
+    datagroups_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/data-group/internal')
+    backup_data(datagroups_data, 'datagroups/prod-ctc')
+
+    irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
+    backup_data(irules_data, 'irules/prod-ctc')
+
+    virtualservers_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    backup_data(virtualservers_data, 'virtualservers/prod-ctc')
+    
+    
+    
 def get_last_commit_date(repo):
+    if not repo.heads:
+        print("Repository is empty. No commits found.")
+        return None
     last_commit = repo.head.commit
     return last_commit.committed_datetime
 
-def check_for_changes(repo):
-    repo.remotes.origin.pull()
-    return repo.is_dirty(untracked_files=True)
+# def check_for_changes(repo):
+#     try:
+#         repo.remotes.origin.pull()
+#         # Check if there are any changes in the local repository
+#         if repo.is_dirty(untracked_files=True) or repo.untracked_files:
+#             return True
+#         else:
+#             return False
+#     except Exception as e:
+#         print(f"Error checking for changes: {e}")
+#         return False
 
+def check_for_changes(repo):
+    try:
+        # Fetch changes from the remote repository
+        repo.remotes.origin.fetch()
+        if not repo.remotes.origin.refs:
+            print("Remote repository is empty. Skipping pull operation.")
+            return True
+        # Pull changes from the remote repository
+        repo.remotes.origin.pull()
+
+        # Check if there are any changes in the local repository
+        if repo.is_dirty(untracked_files=True) or repo.untracked_files:
+            return True
+        else:
+            return False
+    except GitCommandError as e:
+        print(f"Error pulling changes from origin: {e}")
+        return False
+    except Exception as e:
+        print(f"Error checking for changes: {e}")
+        return False
 def update_repository(repo):
     repo.remotes.origin.pull()
     repo.remotes.origin.update()
@@ -21,6 +117,12 @@ def save_metadata(repo, last_commit_date):
         file.write(f"Last commit date: {last_commit_date}\n")
         file.write("Update timestamp: {}\n".format(datetime.datetime.now()))
 
+def set_remote_origin(url):
+    try:
+        subprocess.run(['git', 'remote', 'set-url', 'origin', url], check=True)
+        print("Remote origin URL set successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error setting remote origin URL: {e}")
 def push_changes(repo):
     repo.remotes.origin.push()
     print("Changes pushed to remote repository.")
@@ -52,14 +154,17 @@ def main():
 
     # Get the date of the last commit
     last_commit_date = get_last_commit_date(repo)
-    print(f"Last commit date: {last_commit_date}")
+    if last_commit_date is not None:
+        print(f"Last commit date: {last_commit_date}")
+    else:
+        print("No last commit date available due to empty repository.")
+    # print(f"Last commit date: {last_commit_date}")
         # Replace 'path/to/your/node/script.js' with the actual path to your Node.js script
-    node_script_path = 'scripts/index.js'
+    # node_script_path = 'scripts/index.js'
 
 # Use subprocess to execute the Node.js script
     try:
-        subprocess.run(['node', node_script_path], check=True)
-        print("Node.js script executed successfully.")
+        run()
     except subprocess.CalledProcessError as e:
         print(f"Error executing Node.js script: {e}")
 
@@ -72,7 +177,7 @@ def main():
 
         # Save metadata
         save_metadata(repo, last_commit_date)
-
+        set_remote_origin(repository_url)
         # Push changes to remote repository
         push_changes(repo)
     else:
