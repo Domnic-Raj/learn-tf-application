@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "gwm-ml.wsodqa.com-clientssl-HTTPS",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/gwm-ml.wsodqa.com-clientssl-HTTPS",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~gwm-ml.wsodqa.com-clientssl-HTTPS?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST {\n\n if {[class match [string tolower [HTTP::uri]] contains gwm-ml.wsodqa.com.data.group]} {\n          HTTP::redirect https://[HTTP::host][HTTP::uri]\n}\n  HTTP::header remove x-forwarded-for \n  HTTP::header insert x-forwarded-for [IP::remote_addr] \n}"
-}

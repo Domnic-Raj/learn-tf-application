@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "MOD-Log-FullURL-Request",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/MOD-Log-FullURL-Request",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~MOD-Log-FullURL-Request?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST {\n   # set the URL here, log it on the response\n   set url [HTTP::header Host]\n   set uri [HTTP::uri]\n   set vip [IP::local_addr]:[TCP::local_port]\n   set pool [LB::server pool]\n}\n\nwhen HTTP_RESPONSE {\n   set client [IP::client_addr]:[TCP::client_port]\n   set node [IP::server_addr]:[TCP::server_port]\n   set nodeResp [HTTP::status]\n\n   # log connection info\n   log local0.info \"Client: $client -> VIP:$vip -> pool:$pool-> URL:$url -> URI:$uri -> Node: $node with response $nodeResp\"\n\n}"
-}

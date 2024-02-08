@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "IPManRewriteURL_Research-Ally.markitqa.com_80",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/IPManRewriteURL_Research-Ally.markitqa.com_80",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~IPManRewriteURL_Research-Ally.markitqa.com_80?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST {\n    switch -glob [string tolower [HTTP::uri]] {\n                \"/research-api*\" {\n                                  pool research-ally.markitqa.com-research-api.com_80.pool\n                                  set uri [HTTP::uri [string map -nocase {\"/research-api\" \"/apiman-gateway/AllyBank/ally-api\"} [HTTP::uri]]]\n                                 }\n                 default {  \n                           pool qa.services.mdgapp.net_80.pool \n                         }\n     }\n}"
-}

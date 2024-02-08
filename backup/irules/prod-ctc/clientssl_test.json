@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "clientssl_test",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/clientssl_test",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~clientssl_test?ver=16.1.4.1",
-  "apiAnonymous": "when CLIENTSSL_HANDSHAKE {\n  # log local0. \"cert count=[SSL::cert count] result=[SSL::verify_result]\"\n  if { [SSL::cert count] > 0 } {\n  HTTP::release\n  # log local0. \"Bad cert!\"\n  }\n}\n\nwhen HTTP_REQUEST {\n if { [string tolower [HTTP::uri]] starts_with \"/tradingdashboard/secureapi\" } {\n    if { [SSL::cert count] <= 1 } {\n \t  SSL::cert mode require\n\t  SSL::authenticate always\n\t  SSL::authenticate depth 9  \n      SSL::renegotiate enable\n\t  SSL::renegotiate  \n    }\n  }\n}\n\nwhen HTTP_REQUEST_SEND {\n  clientside {\n    if { [SSL::cert count] > 0 } {\n      HTTP::header insert \"X-SSL-Session-ID\"\t\t[SSL::sessionid]\n      HTTP::header insert \"X-SSL-Client-Cert-Status\"\t[X509::verify_cert_error_string [SSL::verify_result]]\n      HTTP::header insert \"X-SSL-Client-Cert-Subject\"\t[X509::subject [SSL::cert 0]]\n      HTTP::header insert \"X-SSL-Client-Cert-Issuer\"\t[X509::issuer [SSL::cert 0]]\n    }\n  }\n}"
-}

@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "SSL_ciphers_report",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/SSL_ciphers_report",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~SSL_ciphers_report?ver=16.1.4.1",
-  "apiAnonymous": "when CLIENTSSL_HANDSHAKE {\n    set vipname [virtual name]\n    set remote [IP::remote_addr]\n    set suite [SSL::cipher name]\n\n    if { ([matchclass [SSL::cipher name] equals Weak_ciphers_list]) } {\n          log local0. \"Virtual Server $vipname  Client IP is $remote  Selected cipher suite: $suite\"\n    }\n}"
-}

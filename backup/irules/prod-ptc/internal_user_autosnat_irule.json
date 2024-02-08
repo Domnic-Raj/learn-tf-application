@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "internal_user_autosnat_irule",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/internal_user_autosnat_irule",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~internal_user_autosnat_irule?ver=16.1.4.1",
-  "apiAnonymous": "when CLIENT_ACCEPTED {\nif { [matchclass [IP::client_addr] equals interna_user_class ]} { \nsnat automap\n}\nelse {\nsnat none\n}\n}"
-}

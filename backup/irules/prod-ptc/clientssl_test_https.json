@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "clientssl_test_https",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/clientssl_test_https",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~clientssl_test_https?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST {\n if { [string tolower [HTTP::uri]] starts_with \"/tradingdashboard/secureapi\" } {\n  HTTP::redirect https://[HTTP::host][HTTP::uri]\n}\n}"
-}

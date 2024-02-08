@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "Pimco_Documents_Authoring_93",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/Pimco_Documents_Authoring_93",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~Pimco_Documents_Authoring_93?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST {\n  switch -glob [string tolower [HTTP::uri]] {\n         \"/documents*\" {\n                        set new_uri [string map { \"/documents\" \"/\" } [HTTP::uri]]\n                        HTTP::uri $new_uri\n                        HTTP::header replace Host uat.pimcodocs.markitqa.com\n                        pool qa.services.mdgapp.net_80.pool\n                        SSL::disable serverside\n                       }\n         default { pool cm-uat.pimcoweb.markitqa.com_443.pool }\n    }\n}"
-}

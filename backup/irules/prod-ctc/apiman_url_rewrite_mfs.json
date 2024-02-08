@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "apiman_url_rewrite_mfs",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/apiman_url_rewrite_mfs",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~apiman_url_rewrite_mfs?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST {\nif { not([HTTP::uri] starts_with \"/apiman-gateway/MFS\") }\n{ HTTP::uri /apiman-gateway/MFS[HTTP::uri]\n# log local0. \"[HTTP::uri]\"\n}\n}"
-}

@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "dynatrace_id_rewrite",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/dynatrace_id_rewrite",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~dynatrace_id_rewrite?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST {\n  if { ([HTTP::header exists \"X-dynaTrace\"]) } {\n    HTTP::header insert REQUEST-ID [HTTP::header X-dynaTrace]\n  }\n}"
-}

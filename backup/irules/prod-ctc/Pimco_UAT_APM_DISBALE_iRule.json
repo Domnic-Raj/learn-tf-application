@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "Pimco_UAT_APM_DISBALE_iRule",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/Pimco_UAT_APM_DISBALE_iRule",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~Pimco_UAT_APM_DISBALE_iRule?ver=16.1.4.1",
-  "apiAnonymous": "when CLIENT_ACCEPTED {\n   if { !([matchclass [IP::client_addr] equals Pimco_UAT]) } {\n        # log local0. \"[IP::client_addr]:[TCP::client_port]: does not match Pimco_UAT IPs allowed\"\n        reject\n     }\n} \n\nwhen HTTP_REQUEST {\n    if { [matchclass [IP::client_addr] equals PIMCO_UAT_APM_DISABLE]  or [HTTP::uri] contains \"/api\" } { \n            ACCESS::disable\n            # log local0. \"Client [IP::client_addr]: APM DISABLED\"\n         }\n         else {\n            ACCESS::enable\n            # log local0. \"Client [IP::client_addr]: is being checked by APM policy\"\n         }\n}"
-}

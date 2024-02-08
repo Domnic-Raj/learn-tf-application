@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "MOD_block_external_access",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/MOD_block_external_access",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~MOD_block_external_access?ver=16.1.4.1",
-  "apiAnonymous": "when CLIENT_ACCEPTED {\n  #log local0.  \"1st part is [getfield [IP::client_addr] \"%\" 1]\"\n  #log local0.  \"2nd part is [getfield [IP::client_addr] \"%\" 2]\"\n\n  # Check if the client IP is in our internal ranges\n  if {\n    [IP::addr [getfield [IP::client_addr] \"%\" 1] equals 10.0.0.0/8] or \\\n    [IP::addr [getfield [IP::client_addr] \"%\" 1] equals 172.16.0.0/16] or \\\n    [IP::addr [getfield [IP::client_addr] \"%\" 1] equals 192.168.0.0/16] or \\\n    [IP::addr [getfield [IP::client_addr] \"%\" 1] equals 209.234.224.0/20] or \\\n    [IP::addr [getfield [IP::client_addr] \"%\" 1] equals 66.150.28.0/22]\n  } {\n    # continue\n    # log local0. \"Connection is internal from [IP::client_addr], so continue\"\n  } else {\n    # log local0. \"Connection dropped from [IP::client_addr]\"\n    drop\n  }\n}"
-}

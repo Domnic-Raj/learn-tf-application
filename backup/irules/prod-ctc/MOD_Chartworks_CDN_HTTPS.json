@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "MOD_Chartworks_CDN_HTTPS",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/MOD_Chartworks_CDN_HTTPS",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~MOD_Chartworks_CDN_HTTPS?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST priority 510 {\n    if {$newpool eq \"api.markitqa.com_443.pool\"} {\n        # log local0. \"Chartworks-CDN MATCH $newpool\"\n        pool api.markitqa.com_80.pool\n        SSL::disable serverside \n        set pool [LB::server pool]\n        # log local0. \"Chartworks-CDN change to $pool\"\n    } else {\n        # log local0. \"Chartworks-CDN no match $newpool \"\n    }\n}"
-}

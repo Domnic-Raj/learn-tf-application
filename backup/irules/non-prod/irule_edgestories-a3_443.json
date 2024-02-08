@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "irule_edgestories-a3_443",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/irule_edgestories-a3_443",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~irule_edgestories-a3_443?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST {\n    switch -glob [string tolower [HTTP::uri]] {\n                \"/edgestories*\" {\n                                pool WD-apps_Pool-a3\n                                SSL::disable serverside\n                                set uri [HTTP::uri [string map -nocase {\"/edgestories\" \"\"} [HTTP::uri]]]\n                }\n            default { pool gwm-ml-a3.wsodqa.com_443.pool }\n    }\n}"
-}

@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "Strip_XForwarded_Prepend",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/Strip_XForwarded_Prepend",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~Strip_XForwarded_Prepend?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST { \n  HTTP::header remove x-forwarded-for \n  HTTP::header insert x-forwarded-for [getfield  [IP::remote_addr] \"%\" 1 ]\n}"
-}

@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "ADD_X-Forwarded-Proto_443",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/ADD_X-Forwarded-Proto_443",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~ADD_X-Forwarded-Proto_443?ver=16.1.4.1",
-  "apiAnonymous": "                                                                                                                                                                                                                                    ##\n# Notify the backend servers that this traffic was SSL offloaded by the F5.\n##\nwhen HTTP_REQUEST {\n  HTTP::header insert \"X-Forwarded-Proto\" \"https\";\n}"
-}

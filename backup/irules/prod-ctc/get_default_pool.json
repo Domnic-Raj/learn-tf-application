@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "get_default_pool",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/get_default_pool",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~get_default_pool?ver=16.1.4.1",
-  "apiAnonymous": "when CLIENT_ACCEPTED\n{\n    log local0. \"Current virtual server name: [virtual name] [LB::server pool]\"\n    table set \"[virtual name]\" \"[LB::server pool]\" 864000\n}\nwhen HTTP_REQUEST\n{\n    set vip_name \"/Common/[lindex [split [HTTP::uri] \"/\"] 1]\"\n    if {[table lookup $vip_name] eq \"\" }\n    {\n        log local0. \"No records for this vip, try connecting to it first\"\n    }\n    else\n    {   \n        set pool_name [lindex [split [table lookup $vip_name] \"/\"] 2]\n        log local0. \"Pool for $vip_name is $pool_name\"\n    }\n}"
-}

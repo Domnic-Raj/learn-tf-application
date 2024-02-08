@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "MOD_add_apiman-gateway",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/MOD_add_apiman-gateway",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~MOD_add_apiman-gateway?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST {\n            if { [HTTP::host] equals \"reuters-api.markitqa.com\" } {\n                        HTTP::redirect \"https://reuters-api.markitqa.com/apiman-gateway/MOD/[HTTP::uri]\"\n            } \n}"
-}

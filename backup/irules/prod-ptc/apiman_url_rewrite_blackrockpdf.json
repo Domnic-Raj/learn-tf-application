@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "apiman_url_rewrite_blackrockpdf",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/apiman_url_rewrite_blackrockpdf",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~apiman_url_rewrite_blackrockpdf?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST\n{\n if { not([HTTP::uri] starts_with \"/apiman-gateway/BlackRock\") } {\n      HTTP::uri /apiman-gateway/BlackRock[HTTP::uri]\n      # log local0. \"[HTTP::uri]\"\n    }\n}"
-}

@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "MOD-Remove-Server-Info-Headers",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/MOD-Remove-Server-Info-Headers",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~MOD-Remove-Server-Info-Headers?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_RESPONSE { \n\n    # Remove all instances of the Server header \n    HTTP::header remove Server \n    HTTP::header remove X-Powered-By \n    HTTP::header remove X-AspNet-Version \n    HTTP::header remove X-AspNetMVC-Version \n\n }"
-}

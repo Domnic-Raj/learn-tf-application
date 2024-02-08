@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "Pimco_Fallback_Pool_UAT_Auth",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/Pimco_Fallback_Pool_UAT_Auth",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~Pimco_Fallback_Pool_UAT_Auth?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_REQUEST\n{ if { [active_members uat-authoring.pimcoweb.markitqa.com_443.pool] >= 1 } { \n    pool uat-authoring.pimcoweb.markitqa.com_443.pool }\nelse { \n    pool uat-authoring.pimcoweb.markitqa.com_443_fallback.pool }\n}"
-}

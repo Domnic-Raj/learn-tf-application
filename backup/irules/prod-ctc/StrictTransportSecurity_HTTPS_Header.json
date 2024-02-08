@@ -1,9 +1,0 @@
-{
-  "kind": "tm:ltm:rule:rulestate",
-  "name": "StrictTransportSecurity_HTTPS_Header",
-  "partition": "www-qa",
-  "fullPath": "/www-qa/StrictTransportSecurity_HTTPS_Header",
-  "generation": 1,
-  "selfLink": "https://localhost/mgmt/tm/ltm/rule/~www-qa~StrictTransportSecurity_HTTPS_Header?ver=16.1.4.1",
-  "apiAnonymous": "when HTTP_RESPONSE {\nHTTP::header insert \"Strict-Transport-Security\" max-age=15552000\n}"
-}
