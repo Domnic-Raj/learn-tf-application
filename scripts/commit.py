@@ -50,7 +50,7 @@ def run():
     datagroups_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/data-group/internal')
     backup_data(datagroups_data, 'datagroups/prod-ptc')
 
-    irules_data = fetch_data(F5_PROD_PTCD + '/mgmt/tm/ltm/rule')
+    irules_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/rule')
     backup_data(irules_data, 'irules/prod-ptc')
 
     virtualservers_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
