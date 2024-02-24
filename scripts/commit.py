@@ -7,14 +7,10 @@ import pathlib
 import requests
 from git import GitCommandError
 
-
 F5_NON_PROD = 'https://mod-ptc-nonprod.mdgapp.net'
 F5_PROD_PTC = 'https://mod-ptc-prod.mdgapp.net'
 F5_PROD_CTC = 'https://mod-ctc-prod.mdgapp.net'
 BACKUP_LOCATION = pathlib.Path('f5_backup')
-
-
-
 
 def fetch_data(url):
     try:
@@ -41,50 +37,38 @@ def run():
     datagroups_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/data-group/internal')
     backup_data(datagroups_data, 'datagroups/non-prod')
 
-    irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
-    backup_data(irules_data, 'irules/non-prod')
+    # irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
+    # backup_data(irules_data, 'irules/non-prod')
 
-    virtualservers_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
-    backup_data(virtualservers_data, 'virtualservers/non-prod')
-    
+    # virtualservers_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    # backup_data(virtualservers_data, 'virtualservers/non-prod')
+
     datagroups_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/data-group/internal')
     backup_data(datagroups_data, 'datagroups/prod-ptc')
 
-    irules_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/rule')
-    backup_data(irules_data, 'irules/prod-ptc')
+    # irules_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/rule')
+    # backup_data(irules_data, 'irules/prod-ptc')
 
-    virtualservers_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
-    backup_data(virtualservers_data, 'virtualservers/prod-ptc')
-    
-    datagroups_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/data-group/internal')
-    backup_data(datagroups_data, 'datagroups/prod-ctc')
+    # virtualservers_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    # backup_data(virtualservers_data, 'virtualservers/prod-ptc')
 
-    irules_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/rule')
-    backup_data(irules_data, 'irules/prod-ctc')
+    # datagroups_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/data-group/internal')
+    # backup_data(datagroups_data, 'datagroups/prod-ctc')
 
-    virtualservers_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
-    backup_data(virtualservers_data, 'virtualservers/prod-ctc')
-    
-    
-    
+    # irules_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/rule')
+    # backup_data(irules_data, 'irules/prod-ctc')
+
+    # virtualservers_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    # backup_data(virtualservers_data, 'virtualservers/prod-ctc')
+
+
+
 def get_last_commit_date(repo):
     if not repo.heads:
         print("Repository is empty. No commits found.")
         return None
     last_commit = repo.head.commit
     return last_commit.committed_datetime
-
-# def check_for_changes(repo):
-#     try:
-#         repo.remotes.origin.pull()
-#         # Check if there are any changes in the local repository
-#         if repo.is_dirty(untracked_files=True) or repo.untracked_files:
-#             return True
-#         else:
-#             return False
-#     except Exception as e:
-#         print(f"Error checking for changes: {e}")
-#         return False
 
 def check_for_changes(repo):
     try:
@@ -139,6 +123,47 @@ def git_clone(repository_url, target_directory):
     except Exception as e:
         print(f"Error cloning repository: {e}")
 
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+def send_email(smtp_server, sender_email, recipient_email, subject, content, body_as_html=False, attachment=None):
+    try:
+        # Set up the email message
+        message = MIMEMultipart()
+        message['From'] = sender_email
+        message['To'] = ', '.join(recipient_email)
+        message['Subject'] = subject
+        repo_path = 'f5_backup/'
+        status = git_status(repo_path)
+        # Attach the email body
+        html_content = MIMEText(content, "html")
+        message.attach(html_content)
+        # Connect to the SMTP server
+        with smtplib.SMTP(smtp_server) as server:
+            server.send_message(message)  # Send the email
+
+        print("Email sent successfully.")
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+
+def git_status(repo_path):
+    try:
+        # Open the Git repository
+        repo = Repo(repo_path)
+        # Get the status of the repository
+        status = repo.git.status()
+
+        # return status
+        untracked_files = repo.untracked_files
+
+        return untracked_files
+
+    except Exception as e:
+        print(f"Error getting Git status: {e}")
+        return None
+
+
 def main():
     repository_url = 'https://sonali.jain:Nzg1Njc1ODkxMjk1OtOUttUTTM1SoRZXazPL9egsQvx3@stash.mgmt.local/scm/merc/f5_backup.git'
 
@@ -158,9 +183,6 @@ def main():
         print(f"Last commit date: {last_commit_date}")
     else:
         print("No last commit date available due to empty repository.")
-    # print(f"Last commit date: {last_commit_date}")
-        # Replace 'path/to/your/node/script.js' with the actual path to your Node.js script
-    # node_script_path = 'scripts/index.js'
 
 # Use subprocess to execute the Node.js script
     try:
@@ -171,18 +193,35 @@ def main():
     # Check for changes
     if check_for_changes(repo):
         print("Changes detected. Updating repository...")
-
+        status = git_status(repo_path)
         # Add and commit changes
         add_and_commit_changes(repo)
 
         # Save metadata
         save_metadata(repo, last_commit_date)
         set_remote_origin(repository_url)
-        # Push changes to remote repository
-        push_changes(repo)
+        body = ""
+        # status = git_status(repo_path)
+        if status is not None:
+            for file in status:
+                body += file + "\n"
+        # Example usage
+        smtp_server = 'os-smtpp702.prod.mdgapp.net'
+        sender_email = 'sonali.jain@ihsmarkit.com'
+        recipient_email = ['sonali.jain@ihsmarkit.com','sachin.kumar4@ihsmarkit.com']
+        subject = 'BUILD TEST MAIL'
+        content = """
+<html>
+  <body>
+  <p>This is a test email for f5 config update.\n https://stash.mgmt.local/projects/MERC/repos/f5_backup/browse.</p>
+  <p>Changes in files.</p>
+    <pre style="color:green;">{}</pre>
+  </body>
+</html>
+""".format(body)
+        print("content   :  " +content)
+        send_email(smtp_server, sender_email, recipient_email, subject, content, body_as_html=True)
     else:
         print("No changes detected.")
-
 if __name__ == "__main__":
     main()
-
