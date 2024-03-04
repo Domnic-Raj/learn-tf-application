@@ -41,6 +41,11 @@ def run():
     datagroups_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/data-group/internal')
     backup_data(datagroups_data, 'datagroups/non-prod')
 
+    # irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
+    # backup_data(irules_data, 'irules/non-prod')
+
+    # virtualservers_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    # backup_data(virtualservers_data, 'virtualservers/non-prod')
     irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
     backup_data(irules_data, 'irules/non-prod')
 
@@ -50,6 +55,20 @@ def run():
     datagroups_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/data-group/internal')
     backup_data(datagroups_data, 'datagroups/prod-ptc')
 
+    # irules_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/rule')
+    # backup_data(irules_data, 'irules/prod-ptc')
+
+    # virtualservers_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    # backup_data(virtualservers_data, 'virtualservers/prod-ptc')
+
+    # datagroups_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/data-group/internal')
+    # backup_data(datagroups_data, 'datagroups/prod-ctc')
+
+    # irules_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/rule')
+    # backup_data(irules_data, 'irules/prod-ctc')
+
+    # virtualservers_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    # backup_data(virtualservers_data, 'virtualservers/prod-ctc')
     irules_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/rule')
     backup_data(irules_data, 'irules/prod-ptc')
 
@@ -143,6 +162,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+def send_email(smtp_server, sender_email, recipient_email, subject, content, body_as_html=False, attachment=None):
 def send_email(smtp_server, sender_email, recipient_email, subject, body, body_as_html=False, attachment=None):
     try:
         # Set up the email message
@@ -150,8 +170,12 @@ def send_email(smtp_server, sender_email, recipient_email, subject, body, body_a
         message['From'] = sender_email
         message['To'] = ', '.join(recipient_email)
         message['Subject'] = subject
+        repo_path = 'f5_backup/'
+        status = git_status(repo_path)
 
         # Attach the email body
+        html_content = MIMEText(content, "html")
+        message.attach(html_content)
         if body_as_html:
             message.attach(MIMEText(body, 'html'))
         else:
@@ -165,6 +189,21 @@ def send_email(smtp_server, sender_email, recipient_email, subject, body, body_a
     except Exception as e:
         print(f"Failed to send email: {e}")
 
+def git_status(repo_path):
+    try:
+        # Open the Git repository
+        repo = Repo(repo_path)
+        # Get the status of the repository
+        status = repo.git.status()
+
+        # return status
+        untracked_files = repo.untracked_files
+
+        return untracked_files
+
+    except Exception as e:
+        print(f"Error getting Git status: {e}")
+        return None
 
 
 def main():
@@ -199,6 +238,7 @@ def main():
     # Check for changes
     if check_for_changes(repo):
         print("Changes detected. Updating repository...")
+        status = git_status(repo_path)
 
         # Add and commit changes
         add_and_commit_changes(repo)
@@ -206,13 +246,29 @@ def main():
         # Save metadata
         save_metadata(repo, last_commit_date)
         set_remote_origin(repository_url)
+        body = ""
+        status = git_status(repo_path)
+        if status is not None:
+            for file in status:
+                body += file + "\n"
         # Push changes to remote repository
         push_changes(repo)
         # Example usage
         smtp_server = 'os-smtpp702.prod.mdgapp.net'
         sender_email = 'sonali.jain@ihsmarkit.com'
         recipient_email = ['sonali.jain@ihsmarkit.com','sachin.kumar4@ihsmarkit.com']
-        subject = 'F5 CONFIGURATION DRIFT'
+        subject = 'BUILD TEST MAIL'
+        content = """
+<html>
+  <body>
+  <p>This is a test email for f5 config update.\n https://stash.mgmt.local/projects/MERC/repos/f5_backup/browse.</p>
+  <p>Changes in files.</p>
+    <pre style="color:green;">{}</pre>
+  </body>
+</html>
+""".format(body)
+        print("content   :  " +content)
+        send_email(smtp_server, sender_email, recipient_email, subject, content, body_as_html=True)
         body = 'This is a test email for f5 config update.\n https://stash.mgmt.local/projects/MERC/repos/f5_backup/browse'
 
         send_email(smtp_server, sender_email, recipient_email, subject, body, body_as_html=False)
