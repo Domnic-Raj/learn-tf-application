@@ -13,9 +13,6 @@ F5_PROD_PTC = 'https://mod-ptc-prod.mdgapp.net'
 F5_PROD_CTC = 'https://mod-ctc-prod.mdgapp.net'
 BACKUP_LOCATION = pathlib.Path('f5_backup')
 
-
-
-
 def fetch_data(url):
     try:
         response = requests.get(url, auth=('MoD_Guest', 'ReadOnly'))
@@ -41,11 +38,11 @@ def run():
     datagroups_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/data-group/internal')
     backup_data(datagroups_data, 'datagroups/non-prod')
 
-    # irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
-    # backup_data(irules_data, 'irules/non-prod')
+    irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
+    backup_data(irules_data, 'irules/non-prod')
 
-    # virtualservers_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
-    # backup_data(virtualservers_data, 'virtualservers/non-prod')
+    virtualservers_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    backup_data(virtualservers_data, 'virtualservers/non-prod')
     irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
     backup_data(irules_data, 'irules/non-prod')
 
@@ -55,20 +52,20 @@ def run():
     datagroups_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/data-group/internal')
     backup_data(datagroups_data, 'datagroups/prod-ptc')
 
-    # irules_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/rule')
-    # backup_data(irules_data, 'irules/prod-ptc')
+    irules_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/rule')
+    backup_data(irules_data, 'irules/prod-ptc')
 
-    # virtualservers_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
-    # backup_data(virtualservers_data, 'virtualservers/prod-ptc')
+    virtualservers_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    backup_data(virtualservers_data, 'virtualservers/prod-ptc')
 
-    # datagroups_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/data-group/internal')
-    # backup_data(datagroups_data, 'datagroups/prod-ctc')
+    datagroups_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/data-group/internal')
+    backup_data(datagroups_data, 'datagroups/prod-ctc')
 
-    # irules_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/rule')
-    # backup_data(irules_data, 'irules/prod-ctc')
+    irules_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/rule')
+    backup_data(irules_data, 'irules/prod-ctc')
 
-    # virtualservers_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
-    # backup_data(virtualservers_data, 'virtualservers/prod-ctc')
+    virtualservers_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    backup_data(virtualservers_data, 'virtualservers/prod-ctc')
     irules_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/rule')
     backup_data(irules_data, 'irules/prod-ptc')
 
@@ -83,27 +80,13 @@ def run():
 
     virtualservers_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
     backup_data(virtualservers_data, 'virtualservers/prod-ctc')
-    
-    
-    
+     
 def get_last_commit_date(repo):
     if not repo.heads:
         print("Repository is empty. No commits found.")
         return None
     last_commit = repo.head.commit
     return last_commit.committed_datetime
-
-# def check_for_changes(repo):
-#     try:
-#         repo.remotes.origin.pull()
-#         # Check if there are any changes in the local repository
-#         if repo.is_dirty(untracked_files=True) or repo.untracked_files:
-#             return True
-#         else:
-#             return False
-#     except Exception as e:
-#         print(f"Error checking for changes: {e}")
-#         return False
 
 def check_for_changes(repo):
     try:
@@ -162,7 +145,6 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-def send_email(smtp_server, sender_email, recipient_email, subject, content, body_as_html=False, attachment=None):
 def send_email(smtp_server, sender_email, recipient_email, subject, body, body_as_html=False, attachment=None):
     try:
         # Set up the email message
@@ -225,9 +207,6 @@ def main():
         print(f"Last commit date: {last_commit_date}")
     else:
         print("No last commit date available due to empty repository.")
-    # print(f"Last commit date: {last_commit_date}")
-        # Replace 'path/to/your/node/script.js' with the actual path to your Node.js script
-    # node_script_path = 'scripts/index.js'
 
 # Use subprocess to execute the Node.js script
     try:
