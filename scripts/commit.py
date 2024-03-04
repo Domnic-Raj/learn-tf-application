@@ -212,7 +212,7 @@ def main():
         smtp_server = 'os-smtpp702.prod.mdgapp.net'
         sender_email = 'sonali.jain@ihsmarkit.com'
         recipient_email = ['sonali.jain@ihsmarkit.com','sachin.kumar4@ihsmarkit.com']
-        subject = 'BUILD TEST MAIL'
+        subject = 'F5 CONFIGURATION DRIFT'
         body = 'This is a test email for f5 config update.\n https://stash.mgmt.local/projects/MERC/repos/f5_backup/browse'
 
         send_email(smtp_server, sender_email, recipient_email, subject, body, body_as_html=False)
