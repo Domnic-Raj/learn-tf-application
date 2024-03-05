@@ -6,6 +6,9 @@ import json
 import pathlib
 import requests
 from git import GitCommandError
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 
 F5_NON_PROD = 'https://mod-ptc-nonprod.mdgapp.net'
@@ -122,11 +125,7 @@ def git_clone(repository_url, target_directory):
     except Exception as e:
         print(f"Error cloning repository: {e}")
 
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-
-def send_email(smtp_server, sender_email, recipient_email, subject, body, body_as_html=False, attachment=None):
+def send_email(smtp_server, sender_email, recipient_email, subject, body, body_as_html=False):
     try:
         # Set up the email message
         message = MIMEMultipart()
@@ -216,7 +215,7 @@ def main():
         # Example usage
         smtp_server = 'os-smtpp702.prod.mdgapp.net'
         sender_email = 'sonali.jain@ihsmarkit.com'
-        recipient_email = ['sonali.jain@ihsmarkit.com','sachin.kumar4@ihsmarkit.com']
+        recipient_email = ['sonali.jain@ihsmarkit.com']
         subject = 'BUILD TEST MAIL'
         content = """
 <html>
@@ -229,9 +228,6 @@ def main():
 """.format(body)
         print("content   :  " +content)
         send_email(smtp_server, sender_email, recipient_email, subject, content, body_as_html=True)
-        body = 'This is a test email for f5 config update.\n https://stash.mgmt.local/projects/MERC/repos/f5_backup/browse'
-
-        send_email(smtp_server, sender_email, recipient_email, subject, body, body_as_html=False)
     else:
         print("No changes detected.")
 
