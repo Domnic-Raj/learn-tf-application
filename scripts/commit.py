@@ -41,29 +41,29 @@ def run():
     datagroups_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/data-group/internal')
     backup_data(datagroups_data, 'datagroups/non-prod')
 
-    irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
-    backup_data(irules_data, 'irules/non-prod')
+    #irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
+    #backup_data(irules_data, 'irules/non-prod')
 
-    virtualservers_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
-    backup_data(virtualservers_data, 'virtualservers/non-prod')
+    #virtualservers_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    #backup_data(virtualservers_data, 'virtualservers/non-prod')
     
-    datagroups_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/data-group/internal')
-    backup_data(datagroups_data, 'datagroups/prod-ptc')
+    #datagroups_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/data-group/internal')
+    #backup_data(datagroups_data, 'datagroups/prod-ptc')
 
-    irules_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/rule')
-    backup_data(irules_data, 'irules/prod-ptc')
+    #irules_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/rule')
+    #backup_data(irules_data, 'irules/prod-ptc')
 
-    virtualservers_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
-    backup_data(virtualservers_data, 'virtualservers/prod-ptc')
+    #virtualservers_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    #backup_data(virtualservers_data, 'virtualservers/prod-ptc')
 
-    datagroups_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/data-group/internal')
-    backup_data(datagroups_data, 'datagroups/prod-ctc')
+    #datagroups_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/data-group/internal')
+    #backup_data(datagroups_data, 'datagroups/prod-ctc')
 
-    irules_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/rule')
-    backup_data(irules_data, 'irules/prod-ctc')
+    #irules_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/rule')
+    #backup_data(irules_data, 'irules/prod-ctc')
 
-    virtualservers_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
-    backup_data(virtualservers_data, 'virtualservers/prod-ctc')
+    #virtualservers_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    #backup_data(virtualservers_data, 'virtualservers/prod-ctc')
      
 def get_last_commit_date(repo):
     if not repo.heads:
