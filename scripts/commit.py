@@ -208,7 +208,7 @@ def main():
         smtp_server = 'os-smtpp702.prod.mdgapp.net'
         sender_email = 'sonali.jain@ihsmarkit.com'
         recipient_email = ['sonali.jain@ihsmarkit.com','sachin.kumar4@ihsmarkit.com']
-        subject = 'BUILD TEST MAIL'
+        subject = 'F5 CONFIGURATION CHANGES'
         content = """
 <html>
   <body>
