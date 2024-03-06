@@ -1,6 +1,7 @@
+String cron_string = BRANCH_NAME == "master" ? "0 20 */1 * *" : ""
 pipeline {
   	triggers {
-        cron('0 20 */1 * *')
+        cron(cron_string)
     }
     agent {
         label 'linux_bbt'
@@ -11,18 +12,22 @@ pipeline {
                 checkout scm
             }
         }
-       stage('script') {
-            steps {
-                sh 'chmod +x ./scripts/commit.py'
-                sh 'python3 ./scripts/commit.py'
-            }
-        }
-        stage('test trigger')
+        stage('Test Trigger')
         {
             steps{
                 sh 'python3 -m unittest discover -s test'
             }
         }
+       stage('Script Execution') {
+        when {
+                branch 'master'
+            }
+            steps {
+                sh 'chmod +x ./scripts/commit.py'
+                sh 'python3 ./scripts/commit.py'
+            }
+        }
+        
       stage('build') { 
             steps {
                 sh "echo 'Configuration updated ...'"
