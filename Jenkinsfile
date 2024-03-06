@@ -1,7 +1,7 @@
-
+String BRANCH_NAME = 'master'
 pipeline {
   	triggers {
-        cron((env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'main')?'45 13 */1 * *' : '')
+        cron((BRANCH_NAME == 'master' || BRANCH_NAME == 'main')?'22 14 */1 * *' : '')
     }
     agent {
         label 'linux_bbt'
