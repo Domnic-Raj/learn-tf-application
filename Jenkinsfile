@@ -1,8 +1,7 @@
 
 pipeline {
   	triggers {
-      if (env.BRANCH_NAME == 'master')
-      { cron("52 14 */1 * *")}
+      cron("54 14 */1 * *")
     }
     agent {
         label 'linux_bbt'
