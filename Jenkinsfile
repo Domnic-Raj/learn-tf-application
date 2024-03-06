@@ -1,4 +1,4 @@
-String cron_string = (BRANCH_NAME.equals("main") || BRANCH_NAME.equals("master")) ? "25 13 */1 * *" : ""
+String cron_string = (BRANCH_NAME.equals("master")) ? "33 13 */1 * *" : ""
 pipeline {
   	triggers {
         cron(cron_string)
