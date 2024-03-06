@@ -1,7 +1,7 @@
-String cron_string = "34 13 */1 * *" : ""
+
 pipeline {
   	triggers {
-        cron(cron_string)
+        cron("35 13 */1 * *")
     }
     agent {
         label 'linux_bbt'
