@@ -1,7 +1,7 @@
-String BRANCH_NAME = 'master'
+String cron_string = BRANCH_NAME == "master" ? "35 14 */1 * *" : ""
 pipeline {
   	triggers {
-        cron((BRANCH_NAME == 'master' || BRANCH_NAME == 'main')?'25 14 */1 * *' : '')
+        cron(cron_string)
     }
     agent {
         label 'linux_bbt'
