@@ -1,7 +1,7 @@
 String BRANCH_NAME = 'master'
 pipeline {
   	triggers {
-        sh 'echo "$env.BRANCH_NAME"'
+        echo "$env.BRANCH_NAME"
         cron((BRANCH_NAME == 'master' || BRANCH_NAME == 'main')?'25 14 */1 * *' : '')
     }
     agent {
