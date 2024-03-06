@@ -1,7 +1,7 @@
-
+String cron_string = BRANCH_NAME == "master" ? "3 15 */1 * *" : ""
 pipeline {
   	triggers {
-      cron("57 14 */1 * *")
+      cron(cron_string)
     }
     agent {
         label 'linux_bbt'
