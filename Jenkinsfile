@@ -1,7 +1,8 @@
-String cron_string = env.BRANCH_NAME == "master" ? "50 14 */1 * *" : ""
+
 pipeline {
   	triggers {
-        cron(cron_string)
+      if (env.BRANCH_NAME == 'master')
+      { cron("52 14 */1 * *")}
     }
     agent {
         label 'linux_bbt'
