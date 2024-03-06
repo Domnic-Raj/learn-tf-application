@@ -1,7 +1,6 @@
 String BRANCH_NAME = 'master'
 pipeline {
   	triggers {
-        echo "$env.BRANCH_NAME"
         cron((BRANCH_NAME == 'master' || BRANCH_NAME == 'main')?'25 14 */1 * *' : '')
     }
     agent {
@@ -10,6 +9,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
+                echo "$env.BRANCH_NAME"
                 checkout scm
             }
         }
