@@ -1,4 +1,4 @@
-String cron_string = BRANCH_NAME == "master" ? "0 13 */1 * *" : ""
+String cron_string = (BRANCH_NAME == "master" || (BRANCH_NAME == "main") ? "0 13 */1 * *" : ""
 pipeline {
   	triggers {
         cron(cron_string)
