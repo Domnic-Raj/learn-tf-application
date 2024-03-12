@@ -87,9 +87,9 @@ def check_for_changes(repo):
     except GitCommandError as e:
         print(f"Error pulling changes from origin: {e}")
         return False
-    except Exception as e:
+    except AttributeError as e:
         print(f"Error checking for changes: {e}")
-        return False
+        return True
 def update_repository(repo):
     repo.remotes.origin.pull()
     repo.remotes.origin.update()
