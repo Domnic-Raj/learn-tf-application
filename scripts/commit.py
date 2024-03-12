@@ -212,7 +212,7 @@ def main():
                 print("Failed to push changes to remote repository.")
         else:
             print("Failed to stage and commit changes locally.")
-	else:
+    else:
         print("No local changes detected in file.")
 
 if __name__ == "__main__":
