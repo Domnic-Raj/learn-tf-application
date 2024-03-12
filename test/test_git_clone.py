@@ -9,7 +9,7 @@ class TestGitClone(unittest.TestCase):
 
     @patch('scripts.commit.Repo.clone_from')
     def test_git_clone_success(self, mock_clone_from):
-        repository_url = "https://sonali.jain:Nzg1Njc1ODkxMjk1OtOUttUTTM1SoRZXazPL9egsQvx3@stash.mgmt.local/scm/merc/f5_backup.git"
+        repository_url = "https://3@stash.mgmt.local/scm/merc/backup.git"
         target_directory = "backup"
         git_clone(repository_url, target_directory)
         mock_clone_from.assert_called_once_with(repository_url, target_directory)
