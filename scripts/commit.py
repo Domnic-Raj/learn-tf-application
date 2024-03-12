@@ -166,6 +166,7 @@ def get_tracked_files_from_repo(repo_path):
 
 def main():
     repository_url = 'https://sonali.jain:Nzg1Njc1ODkxMjk1OtOUttUTTM1SoRZXazPL9egsQvx3@stash.mgmt.local/scm/merc/f5_backup.git'
+    
 
     # Replace 'path/to/your/target/directory' with the path where you want to clone the repository
     target_directory = 'f5_backup'
@@ -176,6 +177,7 @@ def main():
 
     # Open the Git repository
     repo = Repo(repo_path)
+    origin = repo.create_remote('origin', url=repository_url)
 
     # Get the date of the last commit
     last_commit_date = get_last_commit_date(repo)
