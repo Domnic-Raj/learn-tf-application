@@ -143,7 +143,7 @@ def get_tracked_files_from_repo(repo_path):
         os.chdir(repo_path)
 
         # Run the git ls-files command to list tracked files
-        git_ls_files_output = subprocess.check_output(['git', 'ls-files'], universal_newlines=True)
+        git_ls_files_output = subprocess.check_output(['git', 'ls-files', '--modified'], universal_newlines=True)
         
         # Split the output into lines
         tracked_files = git_ls_files_output.strip().split('\n')
