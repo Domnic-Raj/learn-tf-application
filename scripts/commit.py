@@ -186,19 +186,19 @@ def main():
         # Add and commit changes locally
         if add_and_commit_changes(repo, 'Automated commit - Changes detected'):
             # Check for changes in the remote repository and pull if necessary
-            if git_pull(repo):
+            #if git_pull(repo):
                 # Push changes to the remote repository
-                tracked_files = get_tracked_files_from_repo(target_directory)
-                print("Tracked files:")
-                print(tracked_files)
-                if push_changes(repo):
-                        print("Process completed successfully.")
-                        # Example usage
-                        smtp_server = 'os-smtpp702.prod.mdgapp.net'
-                        sender_email = 'sonali.jain@ihsmarkit.com'
-                        recipient_email = ['sonali.jain@ihsmarkit.com']
-                        subject = 'F5 CONFIGURATION CHANGES'
-                        content = """
+            tracked_files = get_tracked_files_from_repo(target_directory)
+            print("Tracked files:")
+            print(tracked_files)
+            if push_changes(repo):
+              print("Process completed successfully.")
+              # Example usage
+              smtp_server = 'os-smtpp702.prod.mdgapp.net'
+              sender_email = 'sonali.jain@ihsmarkit.com'
+              recipient_email = ['sonali.jain@ihsmarkit.com']
+              subject = 'F5 CONFIGURATION CHANGES'
+              content = """
                                     <html>
                                       <body>
                                       <p>This is a test email for f5 config update.\n https://stash.mgmt.local/projects/MERC/repos/f5_backup/browse.</p>
@@ -207,14 +207,12 @@ def main():
                                       </body>
                                     </html>
                                     """.format('\n'.join('<span style="color:blue;">{}</span>'.format(file) for file in tracked_files))
-                        send_email(smtp_server, sender_email, recipient_email, subject, content, body_as_html=True)
-                else:
-                        print("Failed to push changes to remote repository.")
+              send_email(smtp_server, sender_email, recipient_email, subject, content, body_as_html=True)
             else:
-                print("Failed to pull changes from remote repository.")
+                print("Failed to push changes to remote repository.")
         else:
             print("Failed to stage and commit changes locally.")
-    else:
+	else:
         print("No local changes detected in file.")
 
 if __name__ == "__main__":
