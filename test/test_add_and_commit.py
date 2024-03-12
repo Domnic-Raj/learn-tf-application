@@ -12,7 +12,7 @@ class TestAddAndCommitChanges(unittest.TestCase):
         mock_repo.return_value = mock_repo_instance
 
         # Call the function
-        add_and_commit_changes(mock_repo_instance)
+        add_and_commit_changes(mock_repo_instance, "Test Commit")
 
         # Assertions
         mock_repo_instance.git.add.assert_called_once_with(all=True)
