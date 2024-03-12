@@ -66,7 +66,14 @@ def run():
 
 def git_clone(repository_url, target_directory):
     try:
+        # Temporarily disable SSL verification
+        os.environ['GIT_SSL_NO_VERIFY'] = 'true'
+        
+        # Clone the repository
         repo = Repo.clone_from(repository_url, target_directory)
+        
+        # Re-enable SSL verification
+        del os.environ['GIT_SSL_NO_VERIFY']
         print(f"Repository cloned successfully to {target_directory}")
         return repo
     except Exception as e:
