@@ -6,7 +6,7 @@ from scripts.commit import get_last_commit_date  # Import the function from the 
 class TestGetLastCommitDate(unittest.TestCase):
     def setUp(self):
         # Set up a test Git repository for testing
-        self.repo = Repo.init('f5_backup')
+        self.repo = Repo.init('backup')
         self.repo.index.commit("Automated commit - Changes detected")
         print(self.repo.index.commit("Automated commit - Changes detected"))
 
