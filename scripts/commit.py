@@ -169,7 +169,7 @@ def main():
     if repo is None:
         return
     # Open the Git repository
-    repo = Repo(target_directory)
+    # repo = Repo(target_directory)
     run()
     last_commit_date = get_last_commit_date(repo)
     if last_commit_date is None:
