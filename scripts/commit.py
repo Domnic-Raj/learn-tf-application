@@ -73,7 +73,8 @@ def get_last_commit_date(repo):
 def pull_changes_from_origin():
     try:
         # Run 'git pull' command
-        result = subprocess.run(['git', '-c', 'http.sslVerify=false', 'pull', '-v', '--', 'origin'], capture_output=True, text=True, check=True)
+        origin_url = 'https://sonali.jain:Nzg1Njc1ODkxMjk1OtOUttUTTM1SoRZXazPL9egsQvx3@stash.mgmt.local/scm/merc/f5_backup.git'
+        result = subprocess.run(['git', 'pull', '-v', '--', origin_url], capture_output=True, text=True, check=True)
         
         # Print the output of the command
         print(result.stdout)
