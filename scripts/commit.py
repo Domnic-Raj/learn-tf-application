@@ -100,8 +100,14 @@ def add_and_commit_changes(repo, commit_message):
         return False
 
 def push_changes(repo):
-    try:
+        # Temporarily disable SSL verification
+        os.environ['GIT_SSL_NO_VERIFY'] = 'true'
+        
+        # Push changes to the remote repository
         repo.remotes.origin.push()
+        
+        # Re-enable SSL verification
+        del os.environ['GIT_SSL_NO_VERIFY']
         print("Changes pushed to remote repository.")
         return True
     except Exception as e:
