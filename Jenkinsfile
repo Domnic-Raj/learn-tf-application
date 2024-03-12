@@ -47,7 +47,7 @@ pipeline {
           	 emailext (
 				mimeType: 'text/html',
 				subject: "ERROR CI: Project name -> ${env.JOB_NAME}",
-				to: "sonali.jain@spglobal.com,sachin.kumar4@spglobal.com",
+				to: "sonali.jain@spglobal.com",
 				body: "<b>Example</b><br/><br/>Project: ${env.JOB_NAME}<br/>Build Number: ${env.BUILD_NUMBER}<br/>URL de build: ${env.BUILD_URL}"
 						)
         }
