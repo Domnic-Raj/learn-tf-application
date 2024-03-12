@@ -16,7 +16,7 @@ class TestAddAndCommitChanges(unittest.TestCase):
 
         # Assertions
         mock_repo_instance.git.add.assert_called_once_with(all=True)
-        mock_repo_instance.git.commit.assert_called_once_with('-m', 'Automated commit - Changes detected')
+        mock_repo_instance.git.commit.assert_called_once_with('-m', 'Test Commit')
 
     # @patch('commit.Repo')
     # def test_add_and_commit_changes_git_command_error(self, mock_repo):
