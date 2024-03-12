@@ -100,6 +100,7 @@ def add_and_commit_changes(repo, commit_message):
         return False
 
 def push_changes(repo):
+    try:
         # Temporarily disable SSL verification
         os.environ['GIT_SSL_NO_VERIFY'] = 'true'
         
