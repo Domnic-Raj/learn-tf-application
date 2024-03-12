@@ -73,7 +73,7 @@ def get_last_commit_date(repo):
 def pull_changes_from_origin():
     try:
         # Run 'git pull' command
-        result = subprocess.run(['git', 'pull', '-v', '--', 'origin'], capture_output=True, text=True, check=True)
+        result = subprocess.run(['git', '-c', 'http.sslVerify=false', 'pull', '-v', '--', 'origin'], capture_output=True, text=True, check=True)
         
         # Print the output of the command
         print(result.stdout)
