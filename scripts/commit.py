@@ -69,6 +69,24 @@ def get_last_commit_date(repo):
     last_commit = repo.head.commit
     return last_commit.committed_datetime
 
+  
+def pull_changes_from_origin():
+    try:
+        # Run 'git pull' command
+        result = subprocess.run(['git', 'pull', '-v', '--', 'origin'], capture_output=True, text=True, check=True)
+        
+        # Print the output of the command
+        print(result.stdout)
+        
+        # Return True if successful
+        return True
+    
+    except subprocess.CalledProcessError as e:
+        # If the 'git pull' command fails, print the error message and return False
+        print(f"Error pulling changes from origin: {e.stderr}")
+        return False
+      
+      
 def check_for_changes(repo):
     try:
         # Fetch changes from the remote repository
@@ -77,7 +95,8 @@ def check_for_changes(repo):
             print("Remote repository is empty. Skipping pull operation.")
             return True
         # Pull changes from the remote repository
-        repo.remotes.origin.pull()
+        if not pull_changes_from_origin():
+            return False
 
         # Check if there are any changes in the local repository
         if repo.is_dirty(untracked_files=True) or repo.untracked_files:
