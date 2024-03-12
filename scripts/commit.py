@@ -147,6 +147,7 @@ def get_tracked_files_from_repo(repo_path):
         
         # Split the output into lines
         tracked_files = git_ls_files_output.strip().split('\n')
+        print(tracked_files)
         
         return tracked_files
     
