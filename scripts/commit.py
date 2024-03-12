@@ -82,7 +82,7 @@ def git_pull(repo):
         print(f"Error pulling changes from remote repository: {e}")
         return False
 
-def git_add_and_commit(repo, commit_message):
+def add_and_commit_changes(repo, commit_message):
     try:
         repo.git.add(all=True)
         repo.index.commit(commit_message)
@@ -92,7 +92,7 @@ def git_add_and_commit(repo, commit_message):
         print(f"Error staging and committing changes locally: {e}")
         return False
 
-def git_push(repo):
+def push_changes(repo):
     try:
         repo.remotes.origin.push()
         print("Changes pushed to remote repository.")
@@ -177,14 +177,14 @@ def main():
     # Check for local changes
     if check_for_changes(repo):
         # Add and commit changes locally
-        if git_add_and_commit(repo, 'Automated commit - Changes detected'):
+        if add_and_commit_changes(repo, 'Automated commit - Changes detected'):
             # Check for changes in the remote repository and pull if necessary
             if git_pull(repo):
                 # Push changes to the remote repository
                 tracked_files = get_tracked_files_from_repo(target_directory)
                 print("Tracked files:")
                 print(tracked_files)
-                if git_push(repo):
+                if push_changes(repo):
                         print("Process completed successfully.")
                         # Example usage
                         smtp_server = 'os-smtpp702.prod.mdgapp.net'
