@@ -43,26 +43,26 @@ def run():
     irules_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/rule')
     backup_data(irules_data, 'irules/non-prod')
 
-    virtualservers_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
-    backup_data(virtualservers_data, 'virtualservers/non-prod')
+    # virtualservers_data = fetch_data(F5_NON_PROD + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    # backup_data(virtualservers_data, 'virtualservers/non-prod')
     
     datagroups_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/data-group/internal')
     backup_data(datagroups_data, 'datagroups/prod-ptc')
 
-    irules_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/rule')
-    backup_data(irules_data, 'irules/prod-ptc')
+    # irules_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/rule')
+    # backup_data(irules_data, 'irules/prod-ptc')
 
-    virtualservers_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
-    backup_data(virtualservers_data, 'virtualservers/prod-ptc')
+    # virtualservers_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    # backup_data(virtualservers_data, 'virtualservers/prod-ptc')
 
     datagroups_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/data-group/internal')
     backup_data(datagroups_data, 'datagroups/prod-ctc')
 
-    irules_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/rule')
-    backup_data(irules_data, 'irules/prod-ctc')
+    # irules_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/rule')
+    # backup_data(irules_data, 'irules/prod-ctc')
 
-    virtualservers_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
-    backup_data(virtualservers_data, 'virtualservers/prod-ctc')
+    # virtualservers_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
+    # backup_data(virtualservers_data, 'virtualservers/prod-ctc')
 
 def git_clone(repository_url, target_directory):
     try:
@@ -137,23 +137,6 @@ def get_last_commit_date(repo):
         print(f"Error retrieving last commit date: {e}")
         return None
 
-def get_tracked_files_from_repo(repo_path):
-    try:
-        # Change directory to the cloned repository
-        os.chdir(repo_path)
-
-        # Run the git ls-files command to list tracked files
-        git_ls_files_output = subprocess.check_output(['git', 'diff', '--cached', '--name-only'], universal_newlines=True)
-        
-        # Split the output into lines
-        tracked_files = git_ls_files_output.strip().split('\n')
-        print(tracked_files)
-        
-        return tracked_files
-    
-    except subprocess.CalledProcessError:
-        print("Error: Git command failed")
-        return None
 def send_email(smtp_server, sender_email, recipient_email, subject, content, body_as_html=False, attachment=None):
     try:
         # Set up the email message
@@ -192,13 +175,9 @@ def main():
     # Check for local changes
     if check_for_changes(repo):
         # Add and commit changes locally
+        tracked_files = repo.untracked_files
         if add_and_commit_changes(repo, 'Automated commit - Changes detected'):
-            # Check for changes in the remote repository and pull if necessary
-            #if git_pull(repo):
-                # Push changes to the remote repository
-            tracked_files = get_tracked_files_from_repo(target_directory)
-            print("Tracked files:")
-            print(tracked_files)
+            # Push changes to the remote repository
             if push_changes(repo):
               print("Process completed successfully.")
               # Example usage
