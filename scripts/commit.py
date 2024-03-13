@@ -183,7 +183,7 @@ def main():
               # Example usage
               smtp_server = 'os-smtpp702.prod.mdgapp.net'
               sender_email = 'sonali.jain@ihsmarkit.com'
-              recipient_email = ['sonali.jain@ihsmarkit.com']
+              recipient_email = ['MD-MercuryTeam@ihsmarkit.com']
               subject = 'F5 CONFIGURATION CHANGES'
               content = """
                                     <html>
