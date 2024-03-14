@@ -12,8 +12,8 @@ class TestGetLastCommitDate(unittest.TestCase):
 
     def test_get_last_commit_date(self):
         # Get the last commit date from the test repository
-        expected_commit_date = get_last_commit_date(self.repo)  # Change this to your expected date format
-        actual_commit_date = get_last_commit_date(self.repo)
+        expected_commit_date, commit_id = get_last_commit_date(self.repo)  # Change this to your expected date format
+        actual_commit_date, actual_commit_id = get_last_commit_date(self.repo)
         print(expected_commit_date)
         print(actual_commit_date)
         # Assert that the last commit date matches the expected date
