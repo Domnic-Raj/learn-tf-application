@@ -57,8 +57,8 @@ def run():
     virtualservers_data = fetch_data(F5_PROD_PTC + '/mgmt/tm/ltm/virtual/?expandSubcollections=true&%24select=name,enabled,partition,pool,profilesReference/items/name,rules')
     backup_data(virtualservers_data, 'virtualservers/prod-ptc')
 
-    # datagroups_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/data-group/internal')
-    # backup_data(datagroups_data, 'datagroups/prod-ctc')
+    datagroups_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/data-group/internal')
+    backup_data(datagroups_data, 'datagroups/prod-ctc')
 
     irules_data = fetch_data(F5_PROD_CTC + '/mgmt/tm/ltm/rule')
     backup_data(irules_data, 'irules/prod-ctc')
@@ -239,7 +239,7 @@ def main():
               # Example usage
               smtp_server = 'os-smtpp702.prod.mdgapp.net'
               sender_email = 'sonali.jain@ihsmarkit.com'
-              recipient_email = ['MD-MercuryTeam@ihsmarkit.com']
+              recipient_email = ['MD-MercuryTeam@ihsmarkit.com','brian.baker@spglobal.com','mark.smith@spglobal.com']
               subject = 'F5 CONFIGURATION CHANGES'
               jenkins_url = 'https://jenkins.dev.tools.mdgapp.net/'
               project_name = 'Mercury-Devops'
